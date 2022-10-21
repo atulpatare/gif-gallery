@@ -26,13 +26,14 @@ const main = async () => {
   let account = await program.account.baseAccount.fetch(baseAccount.publicKey);
   console.log('GIF Count ', account.totalGifs.toString());
 
-  await program.rpc.addGif({
+  await program.rpc.addGif("randomlink", {
     accounts: {
       baseAccount: baseAccount.publicKey,
     },
   });
   account = await program.account.baseAccount.fetch(baseAccount.publicKey);
   console.log('GIF Count ', account.totalGifs.toString());
+  console.log('GIF List ', account.gitList);
 }
 
 const runMain = async () => {
