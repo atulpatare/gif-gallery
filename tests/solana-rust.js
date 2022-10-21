@@ -7,11 +7,24 @@ const main = async () => {
 
   const provider = anchor.AnchorProvider.env();
   anchor.setProvider(provider);
-  
+
   const program = anchor.workspace.Solanarust;
-  const tx = await program.rpc.startStuffOff();
+
+  const baseAccount = anchor.web3.Keypair.generate();
+
+  let tx = await program.rpc.startStuffOff({
+    accounts: {
+      baseAccount: baseAccount.publicKey,
+      user: provider.wallet.publicKey,
+      systemProgram: SystemProgram.programId,
+    },
+    signers: [baseAccount]
+  });
 
   console.log('Transaction signature ', tx);
+
+  let account = await program.account.baseAccount.fetch(baseAccount.publicKey);
+  console.log('GIF Count ', account.totalGifs.toString())
 }
 
 const runMain = async () => {
