@@ -48,7 +48,7 @@ pub struct AddGif<'info> {
 #[derive(Debug, Clone, AnchorSerialize, AnchorDeserialize)]
 pub struct ItemStruct {
     pub gif_link: String,
-    pub user_address: PubKey,
+    pub user_address: Pubkey,
 }
 
 #[account]
